@@ -1,0 +1,122 @@
+* {
+    box-sizing: border-box;
+}
+
+input {
+    background-color: transparent;
+    color: #bbbbbb;
+}
+
+.heading {
+    font-size: 1.3rem;
+    font-weight: 400;
+    border: none;
+    width: 100%;
+}
+
+.heading:focus {
+    border: none;
+    border-bottom: 1px solid rgb(126, 182, 255);
+    outline: none;
+}
+
+.itemInput {
+    border: none;
+    border-bottom: 1px solid grey;
+    margin-top: 10px;
+    padding: 5px 0;
+    width: 100%;
+}
+
+.itemInput:focus, .itemInput:active {
+    border-bottom: 1px solid rgb(22, 22, 173);
+    outline: none;
+}
+
+.itemInput:active {
+    border: none;
+}
+
+/* todo item styles */
+
+.listItem {
+    display: flex;
+    position: relative;
+}
+
+.listItemInput {
+    border: none;
+    display: block;
+    padding-top: 5px;
+    width: 100%;
+    margin: 5px 0;
+}
+
+.listItemInput:focus, .listItemInput:active {
+    border-bottom: 1px solid rgb(44, 76, 145);
+    outline: none;
+}
+
+.clearButton {
+    background: transparent;
+    color:#bbbbbb;
+    opacity: 0;
+    border: none;
+    position: absolute;
+    right: 0;
+    top: 5px;
+    line-height: unset;
+}
+
+.listItemInput:active, .listItemInput:focus+.clearButton {
+    opacity: 1;
+}
+
+/* Checkbox Styling */
+
+input[type=checkbox]+label {
+    display: inline-block;
+    margin: 0.2em;
+    cursor: pointer;
+    padding: 0.2em;
+}
+
+input[type=checkbox] {
+    display: none;
+}
+
+input[type=checkbox]+label:before {
+    content: "\2714";
+    border: 0.1em solid #666666;
+    border-radius: 0.2em;
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    padding-left: 0.2em;
+    padding-bottom: 0.3em;
+    margin-right: 0.2em;
+    /* vertical-align: bottom; */
+    color: transparent;
+    transition: .2s;
+}
+
+/* input[type=checkbox]+label:active:before {
+    transform: scale(0.5);
+} */
+
+input[type=checkbox]:checked+label:before {
+    background-color: MediumSeaGreen;
+    border-color: MediumSeaGreen;
+    color: #fff;
+}
+
+input[type=checkbox]:disabled+label:before {
+    transform: scale(1);
+    border-color: #aaa;
+}
+
+input[type=checkbox]:checked:disabled+label:before {
+    transform: scale(1);
+    background-color: #bfb;
+    border-color: #bfb;
+}
