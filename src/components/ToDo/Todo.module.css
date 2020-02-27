@@ -72,6 +72,11 @@ input {
     opacity: 1;
 }
 
+.completedListItemInput {
+    color: #888888;
+    text-decoration: line-through;
+}
+
 /* Checkbox Styling */
 
 input[type=checkbox]+label {
@@ -105,8 +110,10 @@ input[type=checkbox]+label:before {
 } */
 
 input[type=checkbox]:checked+label:before {
-    background-color: MediumSeaGreen;
-    border-color: MediumSeaGreen;
+    /* background-color: MediumSeaGreen;
+    border-color: MediumSeaGreen; */
+    background-color: #888888;
+    border-color: #888888;
     color: #fff;
 }
 

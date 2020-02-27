@@ -78,9 +78,9 @@ const Todo: React.FC = () => {
         setList(newList);
     }
 
-    const checkboxClickHandler = (event: React.MouseEvent<HTMLInputElement, MouseEvent>, itemId: string) => {
+    const checkboxClickHandler = (event: React.ChangeEvent<HTMLInputElement>, itemId: string) => {
         const isChecked = event.currentTarget.checked;
-        
+
         const newList = list.map(listItem => {
             if (listItem.id === itemId) {
                 listItem.isDone = isChecked;
@@ -90,6 +90,8 @@ const Todo: React.FC = () => {
         setList(newList);
     }
 
+    const completedItemList = list.filter(item => item.isDone === true);
+    const incompleteItemList = list.filter(item => item.isDone === false);
     return <>
         <div>
             <form>
@@ -101,10 +103,10 @@ const Todo: React.FC = () => {
                     onChange={(event) => setTitle(event.target.value)}
                 />
                 {
-                    list.map(item => {
+                    incompleteItemList.map(item => {
                         return (
                             <div className={styles.listItem} key={item.id}>
-                                <input type="checkbox" id={item.id} onClick={(event) => checkboxClickHandler(event, item.id)} />
+                                <input type="checkbox" id={item.id} onChange={(event) => checkboxClickHandler(event, item.id)} />
                                 <label htmlFor={item.id}></label>
                                 <input
                                     value={item.value}
@@ -123,6 +125,24 @@ const Todo: React.FC = () => {
                     placeholder={'+ Item'}
                 />
             </form>
+        </div>
+        <div>
+            {
+                completedItemList.map(item => {
+                    return (
+                        <div className={styles.listItem} key={item.id}>
+                            <input type="checkbox" id={item.id} checked={item.isDone} onChange={(event) => checkboxClickHandler(event, item.id)} />
+                            <label htmlFor={item.id}></label>
+                            <input
+                                value={item.value}
+                                onChange={event => itemChangeHandler(event, item)}
+                                readOnly
+                                className={styles.listItemInput + ' ' + styles.completedListItemInput} />
+                            <div className={styles.clearButton} onClick={() => deleteItemHandler(item)} >x</div>
+                        </div>
+                    )
+                })
+            }
         </div>
     </>
 }
