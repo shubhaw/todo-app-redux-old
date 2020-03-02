@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { IState } from '../../store/reducers/reducer';
 import styles from './Todo.module.css';
+import { setList, setTitle } from '../../store/actions/actions';
 
 interface List {
     id: string,
@@ -8,9 +11,21 @@ interface List {
 }
 
 const Todo: React.FC = () => {
-    const [title, setTitle] = useState('');
+    // const [title, setTitle] = useState('');
+    // const [list, setList] = useState<List[]>([]);
     const [input, setInput] = useState('');
-    const [list, setList] = useState<List[]>([]);
+
+    const { title, list } = useSelector((state: IState) => {
+        return {
+            title: state.title,
+            list: state.itemList
+        }
+    });
+
+    const dispatch = useDispatch();
+
+    
+    
 
     const createId = useCallback(
         (length: number) => {
@@ -36,10 +51,11 @@ const Todo: React.FC = () => {
                 isDone: false
             }
             newList.push(newItem);
-            setList(newList);
+            // setList(newList);
+            dispatch(setList(newList));
             setInput('');
         },
-        [input, list, setList, setInput, createId]
+        [input, list, dispatch, setInput, createId]
     )
 
     useEffect(() => {
@@ -61,7 +77,9 @@ const Todo: React.FC = () => {
     const deleteItemHandler = (item: List) => {
         if (window.confirm('Are you sure you want to delete \'' + item.value + '\'?')) {
             const newList: List[] = list.filter(listItem => listItem.id !== item.id);
-            setList(newList);
+
+            // setList(newList);
+            dispatch(setList(newList));
         }
     }
 
@@ -75,7 +93,8 @@ const Todo: React.FC = () => {
             }
             return listItem;
         });
-        setList(newList);
+        // setList(newList);
+        dispatch(setList(newList));
     }
 
     const checkboxClickHandler = (event: React.ChangeEvent<HTMLInputElement>, itemId: string) => {
@@ -87,7 +106,8 @@ const Todo: React.FC = () => {
             }
             return listItem;
         });
-        setList(newList);
+        // setList(newList);
+        dispatch(setList(newList));
     }
 
     const completedItemList = list.filter(item => item.isDone === true);
@@ -100,7 +120,7 @@ const Todo: React.FC = () => {
                     autoFocus
                     placeholder={'Title'}
                     value={title}
-                    onChange={(event) => setTitle(event.target.value)}
+                    onChange={(event) => dispatch(setTitle(event.target.value))}
                 />
                 {
                     incompleteItemList.map(item => {
