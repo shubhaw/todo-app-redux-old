@@ -1,0 +1,7 @@
+.App {
+  /* background: linear-gradient(180deg, #f9fcff, rgb(206, 215, 245)); */
+  /* background: linear-gradient(180deg, #383838, rgb(41, 41, 41)); */
+  background-color: #121212;
+  display: grid;
+  height: 100vh;
+}
